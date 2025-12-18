@@ -52,6 +52,11 @@ public class FraudCheckResult {
         return checkedAt;
     }
 
+    public void setCheckedAt(LocalDateTime checkedAt) {
+        this.checkedAt = checkedAt;
+    }
+
+
     public void setId(Long id) {
         this.id = id;
     }
