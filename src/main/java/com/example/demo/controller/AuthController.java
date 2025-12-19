@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.UserResponseDTO;
+import com.example.demo.dto.AuthResponse;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -11,19 +11,16 @@ public class AuthController {
 
     private final UserService userService;
 
-    // Constructor injection
     public AuthController(UserService userService) {
         this.userService = userService;
     }
 
-    // ---------------- REGISTER ----------------
-
     @PostMapping("/register")
-    public UserResponseDTO register(@RequestBody User user) {
+    public AuthResponse register(@RequestBody User user) {
 
         User savedUser = userService.register(user);
 
-        UserResponseDTO dto = new UserResponseDTO();
+        AuthResponse dto = new AuthResponse();
         dto.id = savedUser.getId();
         dto.email = savedUser.getEmail();
         dto.role = savedUser.getRole();
@@ -31,14 +28,12 @@ public class AuthController {
         return dto;
     }
 
-    // ---------------- LOGIN ----------------
-
     @PostMapping("/login")
-    public UserResponseDTO login(@RequestBody User user) {
+    public AuthResponse login(@RequestBody User user) {
 
         User found = userService.findByEmail(user.getEmail());
 
-        UserResponseDTO dto = new UserResponseDTO();
+        AuthResponse dto = new AuthResponse();
         dto.id = found.getId();
         dto.email = found.getEmail();
         dto.role = found.getRole();
