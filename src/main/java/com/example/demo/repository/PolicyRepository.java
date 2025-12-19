@@ -11,4 +11,3 @@ public interface PolicyRepository extends JpaRepository<Policy, Long> {
 
     boolean existsByPolicyNumber(String policyNumber);
 }
-
