@@ -15,11 +15,29 @@ public class SecurityConfig {
 
         http
             .csrf(csrf -> csrf.disable())
+
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll()
+                .requestMatchers(
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/swagger-ui.html"
+                ).permitAll()
+
+                // ✅ Auth APIs public
+                .requestMatchers("/auth/**").permitAll()
+
+                // 🔐 everything else requires login
+                .anyRequest().authenticated()
             )
-            .formLogin(form -> form.disable())
-            .httpBasic(basic -> basic.disable());
+
+            // ✅ ENABLE login page
+            .formLogin(form -> form
+                .loginPage("/login")     // default Spring login
+                .permitAll()
+            )
+
+            // optional logout
+            .logout(logout -> logout.permitAll());
 
         return http.build();
     }
