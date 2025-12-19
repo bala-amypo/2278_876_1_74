@@ -23,14 +23,11 @@ public class SecurityConfig {
                     "/swagger-ui.html"
                 ).permitAll()
 
-                // ✅ Auth APIs public
                 .requestMatchers("/auth/**").permitAll()
 
-                // 🔐 everything else requires login
                 .anyRequest().authenticated()
             )
 
-            // ✅ ENABLE login page
             .formLogin(form -> form
                 .loginPage("/login")     // default Spring login
                 .permitAll()
