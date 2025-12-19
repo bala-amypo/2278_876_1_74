@@ -28,9 +28,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
 
-            .formLogin(form -> form
-                .loginPage("/login")     // default Spring login
-                .permitAll()
+            .formLogin(form -> form.disable()
             )
 
             // optional logout
