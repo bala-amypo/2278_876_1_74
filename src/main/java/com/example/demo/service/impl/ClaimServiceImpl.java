@@ -15,6 +15,7 @@ public class ClaimServiceImpl implements ClaimService {
     private final ClaimRepository claimRepository;
     private final PolicyRepository policyRepository;
 
+   
     public ClaimServiceImpl(ClaimRepository claimRepository,
                             PolicyRepository policyRepository) {
         this.claimRepository = claimRepository;

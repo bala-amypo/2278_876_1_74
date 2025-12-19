@@ -12,6 +12,7 @@ public class FraudRuleServiceImpl implements FraudRuleService {
 
     private final FraudRuleRepository fraudRuleRepository;
 
+    
     public FraudRuleServiceImpl(FraudRuleRepository fraudRuleRepository) {
         this.fraudRuleRepository = fraudRuleRepository;
     }
