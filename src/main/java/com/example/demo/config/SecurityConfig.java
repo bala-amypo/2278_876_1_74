@@ -15,24 +15,11 @@ public class SecurityConfig {
 
         http
             .csrf(csrf -> csrf.disable())
-
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                    "/swagger-ui/**",
-                    "/v3/api-docs/**",
-                    "/swagger-ui.html"
-                ).permitAll()
-
-                .requestMatchers("/auth/**").permitAll()
-
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()   // 🔓 allow everything
             )
-
-            .formLogin(form -> form.disable()
-            )
-
-            // optional logout
-            .logout(logout -> logout.permitAll());
+            .formLogin(form -> form.disable()) // ❌ disable login page
+            .httpBasic(basic -> basic.disable());
 
         return http.build();
     }
