@@ -10,64 +10,50 @@ public class Claim {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Policy policy;
+    private Double amount;
 
     private LocalDate claimDate;
 
-    private Double claimAmount;
+    @ManyToOne
+    @JoinColumn(name = "policy_id")
+    private Policy policy;
 
-    private String description;
+    public Claim() {
+    }
 
-    private String status = "PENDING";
-
-    public Claim() {}
+    // -------- GETTERS --------
 
     public Long getId() {
         return id;
     }
 
-    public Policy getPolicy() {
-        return policy;
+    public Double getAmount() {
+        return amount;
     }
 
     public LocalDate getClaimDate() {
         return claimDate;
     }
 
-    public Double getClaimAmount() {
-        return claimAmount;
+    public Policy getPolicy() {
+        return policy;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getStatus() {
-        return status;
-    }
+    // -------- SETTERS --------
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setPolicy(Policy policy) {
-        this.policy = policy;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
     public void setClaimDate(LocalDate claimDate) {
         this.claimDate = claimDate;
     }
 
-    public void setClaimAmount(Double claimAmount) {
-        this.claimAmount = claimAmount;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPolicy(Policy policy) {
+        this.policy = policy;
     }
 }

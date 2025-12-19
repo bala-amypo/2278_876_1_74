@@ -29,7 +29,6 @@ public class FraudDetectionServiceImpl implements FraudDetectionService {
         FraudCheckResult result = new FraudCheckResult();
         result.setClaim(claim);
 
-        // Simple fraud rule (example required by tests)
         if (claim.getAmount() > 100000) {
             result.setFraudulent(true);
             result.setReason("High claim amount");
