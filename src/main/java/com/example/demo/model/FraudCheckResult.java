@@ -1,6 +1,13 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,63 +21,65 @@ public class FraudCheckResult {
     @JoinColumn(name = "claim_id", unique = true)
     private Claim claim;
 
-    private boolean fraudulent;
-
-    private String reason;
-
+    private boolean isFraudulent;
+    private String triggeredRuleName;
+    private String rejectionReason;
     private LocalDateTime checkedAt;
 
-    public FraudCheckResult() {
+    // ✅ REQUIRED default constructor
+    public FraudCheckResult() {}
+
+    @PrePersist
+    public void onCreate() {
+        checkedAt = LocalDateTime.now();
     }
 
-    // ---------- GETTERS ----------
-
+    // getters & setters (ALL REQUIRED)
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Claim getClaim() {
         return claim;
     }
 
-    public boolean isFraudulent() {
-        return fraudulent;
+    public void setClaim(Claim claim) {
+        this.claim = claim;
     }
 
-    public String getReason() {
-        return reason;
+    public boolean isIsFraudulent() {
+        return isFraudulent;
+    }
+
+    public void setIsFraudulent(boolean isFraudulent) {
+        this.isFraudulent = isFraudulent;
+    }
+
+    public String getTriggeredRuleName() {
+        return triggeredRuleName;
+    }
+
+    public void setTriggeredRuleName(String triggeredRuleName) {
+        this.triggeredRuleName = triggeredRuleName;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
     }
 
     public LocalDateTime getCheckedAt() {
         return checkedAt;
     }
 
-    // ---------- SETTERS ----------
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setClaim(Claim claim) {
-        this.claim = claim;
-    }
-
-    public void setFraudulent(boolean fraudulent) {
-        this.fraudulent = fraudulent;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
     public void setCheckedAt(LocalDateTime checkedAt) {
         this.checkedAt = checkedAt;
-    }
-
-    // ---------- AUTO TIMESTAMP ----------
-
-    @PrePersist
-    public void onCreate() {
-        this.checkedAt = LocalDateTime.now();
     }
 }

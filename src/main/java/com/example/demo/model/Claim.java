@@ -1,6 +1,11 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
 import java.time.LocalDate;
 
 @Entity
@@ -10,50 +15,63 @@ public class Claim {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double amount;
-
-    private LocalDate claimDate;
-
     @ManyToOne
-    @JoinColumn(name = "policy_id")
     private Policy policy;
 
-    public Claim() {
-    }
+    private LocalDate claimDate;
+    private double claimAmount;
+    private String description;
+    private String status;
 
-    // -------- GETTERS --------
+    // ✅ REQUIRED default constructor
+    public Claim() {}
 
+    // getters & setters
     public Long getId() {
         return id;
     }
 
-    public Double getAmount() {
-        return amount;
-    }
-
-    public LocalDate getClaimDate() {
-        return claimDate;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Policy getPolicy() {
         return policy;
     }
 
-    // -------- SETTERS --------
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setPolicy(Policy policy) {
+        this.policy = policy;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public LocalDate getClaimDate() {
+        return claimDate;
     }
 
     public void setClaimDate(LocalDate claimDate) {
         this.claimDate = claimDate;
     }
 
-    public void setPolicy(Policy policy) {
-        this.policy = policy;
+    public double getClaimAmount() {
+        return claimAmount;
+    }
+
+    public void setClaimAmount(double claimAmount) {
+        this.claimAmount = claimAmount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

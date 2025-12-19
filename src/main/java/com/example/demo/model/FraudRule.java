@@ -1,9 +1,11 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "ruleName"))
 public class FraudRule {
 
     @Id
@@ -11,59 +13,57 @@ public class FraudRule {
     private Long id;
 
     private String ruleName;
-
     private String conditionField;
-
     private String operator;
-
     private String value;
-
     private String severity;
 
+    // ✅ REQUIRED default constructor
     public FraudRule() {}
 
+    // getters & setters
     public Long getId() {
         return id;
-    }
-
-    public String getRuleName() {
-        return ruleName;
-    }
-
-    public String getConditionField() {
-        return conditionField;
-    }
-
-    public String getOperator() {
-        return operator;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public String getSeverity() {
-        return severity;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
+    public String getRuleName() {
+        return ruleName;
+    }
+
     public void setRuleName(String ruleName) {
         this.ruleName = ruleName;
+    }
+
+    public String getConditionField() {
+        return conditionField;
     }
 
     public void setConditionField(String conditionField) {
         this.conditionField = conditionField;
     }
 
+    public String getOperator() {
+        return operator;
+    }
+
     public void setOperator(String operator) {
         this.operator = operator;
     }
 
+    public String getValue() {
+        return value;
+    }
+
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getSeverity() {
+        return severity;
     }
 
     public void setSeverity(String severity) {
