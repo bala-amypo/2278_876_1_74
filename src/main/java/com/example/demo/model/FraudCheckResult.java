@@ -11,22 +11,19 @@ public class FraudCheckResult {
     private Long id;
 
     @OneToOne
+    @JoinColumn(name = "claim_id", unique = true)
     private Claim claim;
 
-    private Boolean isFraudulent;
+    private boolean fraudulent;
 
-    private String triggeredRuleName;
-
-    private String rejectionReason;
+    private String reason;
 
     private LocalDateTime checkedAt;
 
-    @PrePersist
-    public void prePersist() {
-        this.checkedAt = LocalDateTime.now();
+    public FraudCheckResult() {
     }
 
-    public FraudCheckResult() {}
+    // ---------- GETTERS ----------
 
     public Long getId() {
         return id;
@@ -36,26 +33,19 @@ public class FraudCheckResult {
         return claim;
     }
 
-    public Boolean getIsFraudulent() {
-        return isFraudulent;
+    public boolean isFraudulent() {
+        return fraudulent;
     }
 
-    public String getTriggeredRuleName() {
-        return triggeredRuleName;
-    }
-
-    public String getRejectionReason() {
-        return rejectionReason;
+    public String getReason() {
+        return reason;
     }
 
     public LocalDateTime getCheckedAt() {
         return checkedAt;
     }
 
-    public void setCheckedAt(LocalDateTime checkedAt) {
-        this.checkedAt = checkedAt;
-    }
-
+    // ---------- SETTERS ----------
 
     public void setId(Long id) {
         this.id = id;
@@ -65,15 +55,22 @@ public class FraudCheckResult {
         this.claim = claim;
     }
 
-    public void setIsFraudulent(Boolean isFraudulent) {
-        this.isFraudulent = isFraudulent;
+    public void setFraudulent(boolean fraudulent) {
+        this.fraudulent = fraudulent;
     }
 
-    public void setTriggeredRuleName(String triggeredRuleName) {
-        this.triggeredRuleName = triggeredRuleName;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
-    public void setRejectionReason(String rejectionReason) {
-        this.rejectionReason = rejectionReason;
+    public void setCheckedAt(LocalDateTime checkedAt) {
+        this.checkedAt = checkedAt;
+    }
+
+    // ---------- AUTO TIMESTAMP ----------
+
+    @PrePersist
+    public void onCreate() {
+        this.checkedAt = LocalDateTime.now();
     }
 }
