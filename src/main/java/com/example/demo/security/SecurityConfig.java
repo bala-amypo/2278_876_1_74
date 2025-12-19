@@ -1,0 +1,3 @@
+@Configuration
+public class SecurityConfig {
+}
