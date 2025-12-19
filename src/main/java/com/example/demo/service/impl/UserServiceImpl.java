@@ -12,24 +12,23 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    // EXACT ORDER REQUIRED
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    // Constructor injection
+    public UserServiceImpl(UserRepository userRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public User register(User user) {
+        // Encode password before saving
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        if (user.getRole() == null) {
-            user.setRole("USER");
-        }
         return userRepository.save(user);
     }
 
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElse(null);
     }
 }
