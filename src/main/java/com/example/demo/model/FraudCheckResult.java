@@ -26,7 +26,6 @@ public class FraudCheckResult {
     private String rejectionReason;
     private LocalDateTime checkedAt;
 
-    // ✅ REQUIRED default constructor
     public FraudCheckResult() {}
 
     @PrePersist
