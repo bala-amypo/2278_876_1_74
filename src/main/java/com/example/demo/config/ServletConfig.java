@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-public class SecurityConfig {
+public class ServletConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -16,9 +16,9 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll()   // 🔓 allow everything
+                .anyRequest().permitAll()
             )
-            .formLogin(form -> form.disable()) // ❌ disable login page
+            .formLogin(form -> form.disable())
             .httpBasic(basic -> basic.disable());
 
         return http.build();
