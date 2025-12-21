@@ -15,17 +15,18 @@ public class HqlQueryHelper {
 
     public List<Claim> findClaimsByDescriptionKeyword(String keyword) {
         return entityManager.createQuery(
-                "FROM Claim c WHERE LOWER(c.description) LIKE LOWER(:k)",
+                "SELECT c FROM Claim c WHERE LOWER(c.description) LIKE LOWER(:kw)",
                 Claim.class
-        ).setParameter("k", "%" + keyword + "%")
+        ).setParameter("kw", "%" + keyword + "%")
          .getResultList();
     }
 
     public List<Claim> findHighValueClaims(Double minAmount) {
         return entityManager.createQuery(
-                "FROM Claim c WHERE c.claimAmount > :a",
+                "SELECT c FROM Claim c WHERE c.claimAmount > :amt",
                 Claim.class
-        ).setParameter("a", minAmount)
+        ).setParameter("amt", minAmount)
          .getResultList();
     }
 }
+
