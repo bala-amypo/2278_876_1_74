@@ -25,7 +25,6 @@ public class Claim {
 
     public Claim() {}
 
-    // getters & setters
     public Long getId() {
         return id;
     }
