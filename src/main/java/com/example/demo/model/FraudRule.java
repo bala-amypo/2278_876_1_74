@@ -18,10 +18,8 @@ public class FraudRule {
     private String value;
     private String severity;
 
-    // ✅ REQUIRED default constructor
     public FraudRule() {}
 
-    // getters & setters
     public Long getId() {
         return id;
     }

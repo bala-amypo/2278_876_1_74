@@ -17,7 +17,6 @@ public class User {
     private String password;
     private String role;
 
-    // ✅ REQUIRED default constructor
     public User() {}
 
     // getters & setters

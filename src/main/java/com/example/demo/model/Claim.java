@@ -23,7 +23,6 @@ public class Claim {
     private String description;
     private String status;
 
-    // ✅ REQUIRED default constructor
     public Claim() {}
 
     // getters & setters
