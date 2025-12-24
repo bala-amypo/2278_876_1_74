@@ -1,18 +1,8 @@
-package com.example.demo.model;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-
-import java.time.LocalDate;
-
 @Entity
 public class Claim {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @ManyToOne
@@ -23,53 +13,18 @@ public class Claim {
     private String description;
     private String status;
 
+    @ManyToMany
+    private Set<FraudRule> suspectedRules = new HashSet<>();
+
     public Claim() {}
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Policy getPolicy() {
-        return policy;
-    }
-
-    public void setPolicy(Policy policy) {
+    public Claim(Policy policy, LocalDate claimDate,
+                 double claimAmount, String description) {
         this.policy = policy;
-    }
-
-    public LocalDate getClaimDate() {
-        return claimDate;
-    }
-
-    public void setClaimDate(LocalDate claimDate) {
         this.claimDate = claimDate;
-    }
-
-    public double getClaimAmount() {
-        return claimAmount;
-    }
-
-    public void setClaimAmount(double claimAmount) {
         this.claimAmount = claimAmount;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    // getters + setters
 }
