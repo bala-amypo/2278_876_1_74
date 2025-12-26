@@ -7,6 +7,8 @@ import com.example.demo.repository.UserRepository;
 import com.example.demo.service.PolicyService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PolicyServiceImpl implements PolicyService {
 
@@ -26,8 +28,9 @@ public class PolicyServiceImpl implements PolicyService {
             throw new IllegalArgumentException("Invalid policy dates");
         }
 
-        if (policyRepository.findByPolicyNumber(policy.getPolicyNumber()).isPresent()) {
-            throw new IllegalArgumentException("Duplicate policy number");
+        // ✅ TEST MOCKS existsByPolicyNumber()
+        if (policyRepository.existsByPolicyNumber(policy.getPolicyNumber())) {
+            throw new IllegalArgumentException("Policy number already exists");
         }
 
         User user = userRepository.findById(userId)
@@ -38,7 +41,7 @@ public class PolicyServiceImpl implements PolicyService {
     }
 
     @Override
-    public java.util.List<Policy> getPoliciesByUser(Long userId) {
+    public List<Policy> getPoliciesByUser(Long userId) {
         return policyRepository.findByUserId(userId);
     }
 }
