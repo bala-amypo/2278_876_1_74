@@ -19,8 +19,15 @@ public class FraudCheckResult {
     // 🔥 REQUIRED BY TESTS
     private String matchedRules;
 
+    // 🔥 REQUIRED BY FraudDetectionServiceImpl
+    @OneToOne
+    @JoinColumn(name = "claim_id")
+    private Claim claim;
+
     public FraudCheckResult() {
     }
+
+    // ===== Getters & Setters =====
 
     public Long getId() {
         return id;
@@ -50,12 +57,21 @@ public class FraudCheckResult {
         this.rejectionReason = rejectionReason;
     }
 
-    // 🔥 REQUIRED BY TESTS
+    // 🔥 TEST SUPPORT
     public String getMatchedRules() {
         return matchedRules;
     }
 
     public void setMatchedRules(String matchedRules) {
         this.matchedRules = matchedRules;
+    }
+
+    // 🔥 SERVICE SUPPORT
+    public Claim getClaim() {
+        return claim;
+    }
+
+    public void setClaim(Claim claim) {
+        this.claim = claim;
     }
 }
