@@ -17,16 +17,6 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
-    @Override
-    public User register(User user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
-            throw new IllegalArgumentException("Email already exists");
-        }
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-    return userRepository.save(user);
-}
-
 
     @Override
     public User register(User user) {
