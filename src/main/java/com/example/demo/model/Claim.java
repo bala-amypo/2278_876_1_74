@@ -13,57 +13,59 @@ public class Claim {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "policy_id")
-    private Policy policy;
-
     private LocalDate claimDate;
 
     private Double claimAmount;
 
     private String description;
 
-    private String status;
+    /* -------------------------------
+       Policy relationship
+    -------------------------------- */
+    @ManyToOne
+    @JoinColumn(name = "policy_id")
+    private Policy policy;
 
+    /* -------------------------------
+       Fraud rules (Many-to-Many)
+    -------------------------------- */
     @ManyToMany
     @JoinTable(
-        name = "claim_fraud_rules",
-        joinColumns = @JoinColumn(name = "claim_id"),
-        inverseJoinColumns = @JoinColumn(name = "fraud_rule_id")
+            name = "claim_fraud_rules",
+            joinColumns = @JoinColumn(name = "claim_id"),
+            inverseJoinColumns = @JoinColumn(name = "fraud_rule_id")
     )
     private Set<FraudRule> suspectedRules = new HashSet<>();
 
-    @OneToOne(mappedBy = "claim", cascade = CascadeType.ALL)
+    /* -------------------------------
+       Fraud check result (OWNING SIDE)
+    -------------------------------- */
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fraud_check_result_id")
     private FraudCheckResult fraudCheckResult;
 
+    /* -------------------------------
+       Constructors
+    -------------------------------- */
     public Claim() {
     }
 
-    public Claim(Policy policy, LocalDate claimDate,
-                 Double claimAmount, String description) {
+    public Claim(Policy policy, LocalDate claimDate, Double claimAmount, String description) {
         this.policy = policy;
         this.claimDate = claimDate;
         this.claimAmount = claimAmount;
         this.description = description;
-        this.status = "PENDING";
     }
 
-    // ===== GETTERS & SETTERS (THIS FIXES YOUR ERROR) =====
-
+    /* -------------------------------
+       Getters & Setters
+    -------------------------------- */
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Policy getPolicy() {
-        return policy;
-    }
-
-    public void setPolicy(Policy policy) {
-        this.policy = policy;
     }
 
     public LocalDate getClaimDate() {
@@ -90,12 +92,12 @@ public class Claim {
         this.description = description;
     }
 
-    public String getStatus() {
-        return status;
+    public Policy getPolicy() {
+        return policy;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPolicy(Policy policy) {
+        this.policy = policy;
     }
 
     public Set<FraudRule> getSuspectedRules() {
