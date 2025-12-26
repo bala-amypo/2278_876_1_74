@@ -16,8 +16,15 @@ public class FraudCheckResult {
 
     private String rejectionReason;
 
+    // 🔹 Needed because FraudDetectionServiceImpl calls setClaim()
+    @OneToOne
+    @JoinColumn(name = "claim_id")
+    private Claim claim;
+
     public FraudCheckResult() {
     }
+
+    // ===== GETTERS & SETTERS =====
 
     public Long getId() {
         return id;
@@ -45,5 +52,14 @@ public class FraudCheckResult {
 
     public void setRejectionReason(String rejectionReason) {
         this.rejectionReason = rejectionReason;
+    }
+
+    // 🔥 THIS FIXES YOUR ERROR
+    public Claim getClaim() {
+        return claim;
+    }
+
+    public void setClaim(Claim claim) {
+        this.claim = claim;
     }
 }
