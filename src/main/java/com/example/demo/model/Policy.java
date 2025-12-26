@@ -14,37 +14,24 @@ public class Policy {
     private Long id;
 
     private String policyNumber;
-
-    private String policyHolderName;
-
+    private String policyType;
     private LocalDate startDate;
-
     private LocalDate endDate;
 
-    private String policyType;
-
-    // 🔹 Relationship with User (needed for setUser())
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    // 🔹 Relationship with Claim
     @OneToMany(mappedBy = "policy", cascade = CascadeType.ALL)
     private Set<Claim> claims = new HashSet<>();
 
     public Policy() {
     }
 
-    public Policy(String policyNumber, String policyHolderName,
-                  LocalDate startDate, LocalDate endDate, String policyType) {
-        this.policyNumber = policyNumber;
-        this.policyHolderName = policyHolderName;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.policyType = policyType;
+    // 🔥 REQUIRED BY TESTS
+    public void setId(Long id) {
+        this.id = id;
     }
-
-    // ===== GETTERS & SETTERS =====
 
     public Long getId() {
         return id;
@@ -58,12 +45,12 @@ public class Policy {
         this.policyNumber = policyNumber;
     }
 
-    public String getPolicyHolderName() {
-        return policyHolderName;
+    public String getPolicyType() {
+        return policyType;
     }
 
-    public void setPolicyHolderName(String policyHolderName) {
-        this.policyHolderName = policyHolderName;
+    public void setPolicyType(String policyType) {
+        this.policyType = policyType;
     }
 
     public LocalDate getStartDate() {
@@ -82,15 +69,6 @@ public class Policy {
         this.endDate = endDate;
     }
 
-    public String getPolicyType() {
-        return policyType;
-    }
-
-    public void setPolicyType(String policyType) {
-        this.policyType = policyType;
-    }
-
-    // ✅ REQUIRED BY PolicyServiceImpl
     public User getUser() {
         return user;
     }
@@ -101,9 +79,5 @@ public class Policy {
 
     public Set<Claim> getClaims() {
         return claims;
-    }
-
-    public void setClaims(Set<Claim> claims) {
-        this.claims = claims;
     }
 }

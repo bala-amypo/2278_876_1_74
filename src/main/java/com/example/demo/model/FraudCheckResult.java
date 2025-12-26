@@ -16,15 +16,11 @@ public class FraudCheckResult {
 
     private String rejectionReason;
 
-    // 🔹 Needed because FraudDetectionServiceImpl calls setClaim()
-    @OneToOne
-    @JoinColumn(name = "claim_id")
-    private Claim claim;
+    // 🔥 REQUIRED BY TESTS
+    private String matchedRules;
 
     public FraudCheckResult() {
     }
-
-    // ===== GETTERS & SETTERS =====
 
     public Long getId() {
         return id;
@@ -54,12 +50,12 @@ public class FraudCheckResult {
         this.rejectionReason = rejectionReason;
     }
 
-    // 🔥 THIS FIXES YOUR ERROR
-    public Claim getClaim() {
-        return claim;
+    // 🔥 REQUIRED BY TESTS
+    public String getMatchedRules() {
+        return matchedRules;
     }
 
-    public void setClaim(Claim claim) {
-        this.claim = claim;
+    public void setMatchedRules(String matchedRules) {
+        this.matchedRules = matchedRules;
     }
 }
