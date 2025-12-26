@@ -14,21 +14,52 @@ public class Policy {
     private Long id;
 
     private String policyNumber;
+
     private String policyType;
+
     private LocalDate startDate;
+
     private LocalDate endDate;
 
+    /* -------------------------------
+       Relationship with User
+    -------------------------------- */
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    /* -------------------------------
+       Relationship with Claims
+    -------------------------------- */
     @OneToMany(mappedBy = "policy", cascade = CascadeType.ALL)
     private Set<Claim> claims = new HashSet<>();
 
+    /* -------------------------------
+       Constructors
+    -------------------------------- */
+
+    // ✅ Required by JPA
     public Policy() {
     }
 
-    // 🔥 REQUIRED BY TESTS
+    // ✅ REQUIRED BY TEST CASES
+    public Policy(User user,
+                  String policyNumber,
+                  String policyType,
+                  LocalDate startDate,
+                  LocalDate endDate) {
+        this.user = user;
+        this.policyNumber = policyNumber;
+        this.policyType = policyType;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    /* -------------------------------
+       Getters & Setters
+    -------------------------------- */
+
+    // ✅ REQUIRED BY TESTS
     public void setId(Long id) {
         this.id = id;
     }
@@ -79,5 +110,9 @@ public class Policy {
 
     public Set<Claim> getClaims() {
         return claims;
+    }
+
+    public void setClaims(Set<Claim> claims) {
+        this.claims = claims;
     }
 }
