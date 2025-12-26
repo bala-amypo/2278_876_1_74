@@ -23,6 +23,12 @@ public class Policy {
 
     private String policyType;
 
+    // 🔹 Relationship with User (needed for setUser())
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    // 🔹 Relationship with Claim
     @OneToMany(mappedBy = "policy", cascade = CascadeType.ALL)
     private Set<Claim> claims = new HashSet<>();
 
@@ -82,6 +88,15 @@ public class Policy {
 
     public void setPolicyType(String policyType) {
         this.policyType = policyType;
+    }
+
+    // ✅ REQUIRED BY PolicyServiceImpl
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Set<Claim> getClaims() {
