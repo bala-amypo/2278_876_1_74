@@ -12,7 +12,11 @@ public class SwaggerConfig {
 
     @Bean
     public OpenAPI customOpenAPI() {
-        return new OpenAPI()
+        return new OpenAPI().info(new Info()
+                        .title("Insurance Fraud Detection API")
+                        .version("1.0.0")
+                        .description("REST API for policy management, claims, and fraud detection")
+                )
                 .servers(List.of(
                         new Server().url("https://9167.32procr.amypo.ai/")
                 ));
