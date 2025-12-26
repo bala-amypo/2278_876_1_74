@@ -10,22 +10,17 @@ public class FraudCheckResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean fraudDetected;
+    // 🔹 Expected by FraudDetectionServiceImpl
+    private boolean isFraudulent;
 
-    private String riskLevel;
+    private String triggeredRuleName;
 
-    private String message;
+    private String rejectionReason;
 
     @OneToOne(mappedBy = "fraudCheckResult")
     private Claim claim;
 
     public FraudCheckResult() {
-    }
-
-    public FraudCheckResult(boolean fraudDetected, String riskLevel, String message) {
-        this.fraudDetected = fraudDetected;
-        this.riskLevel = riskLevel;
-        this.message = message;
     }
 
     // ===== GETTERS & SETTERS =====
@@ -34,28 +29,31 @@ public class FraudCheckResult {
         return id;
     }
 
-    public boolean isFraudDetected() {
-        return fraudDetected;
+    public boolean isFraudulent() {
+        return isFraudulent;
     }
 
-    public void setFraudDetected(boolean fraudDetected) {
-        this.fraudDetected = fraudDetected;
+    // 🔥 REQUIRED BY SERVICE
+    public void setIsFraudulent(boolean isFraudulent) {
+        this.isFraudulent = isFraudulent;
     }
 
-    public String getRiskLevel() {
-        return riskLevel;
+    public String getTriggeredRuleName() {
+        return triggeredRuleName;
     }
 
-    public void setRiskLevel(String riskLevel) {
-        this.riskLevel = riskLevel;
+    // 🔥 REQUIRED BY SERVICE
+    public void setTriggeredRuleName(String triggeredRuleName) {
+        this.triggeredRuleName = triggeredRuleName;
     }
 
-    public String getMessage() {
-        return message;
+    public String getRejectionReason() {
+        return rejectionReason;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    // 🔥 REQUIRED BY SERVICE
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
     }
 
     public Claim getClaim() {
