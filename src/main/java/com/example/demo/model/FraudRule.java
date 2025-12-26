@@ -1,53 +1,78 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
-@Table(name = "fraud_rules")
 public class FraudRule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String ruleName;
 
     private String conditionField;
 
     private String operator;
 
-    private String value;
-
-    private String severity;
+    private Double value;
 
     @ManyToMany
-    @JoinTable(
-        name = "claim_fraud_rule",
-        joinColumns = @JoinColumn(name = "fraud_rule_id"),
-        inverseJoinColumns = @JoinColumn(name = "claim_id")
-    )
-    private Set<Claim> claims = new HashSet<>();
+    private List<Claim> claims;
 
     public FraudRule() {
     }
 
-    public void setSeverity(String severity) {
-        if (!severity.equals("LOW") &&
-            !severity.equals("MEDIUM") &&
-            !severity.equals("HIGH")) {
-            throw new IllegalArgumentException("Invalid severity");
-        }
-        this.severity = severity;
+    public FraudRule(String ruleName, String conditionField, String operator, Double value) {
+        this.ruleName = ruleName;
+        this.conditionField = conditionField;
+        this.operator = operator;
+        this.value = value;
     }
 
-    public String getSeverity() {
-        return severity;
+    public Long getId() {
+        return id;
     }
 
-    public Set<Claim> getClaims() {
+    public String getRuleName() {
+        return ruleName;
+    }
+
+    public void setRuleName(String ruleName) {
+        this.ruleName = ruleName;
+    }
+
+    public String getConditionField() {
+        return conditionField;
+    }
+
+    public void setConditionField(String conditionField) {
+        this.conditionField = conditionField;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
+    public List<Claim> getClaims() {
         return claims;
+    }
+
+    public void setClaims(List<Claim> claims) {
+        this.claims = claims;
     }
 }
 

@@ -1,72 +1,55 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "claims")
 public class Claim {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate claimDate;
+    private Double claimAmount;
 
-    private double amount;
+    private String claimType;
 
-    private String description;
-
-    @ManyToOne
-    @JoinColumn(name = "policy_id")
-    private Policy policy;
-
-    @ManyToMany(mappedBy = "claims")
-    private Set<FraudRule> fraudRules = new HashSet<>();
+    private String policyNumber;
 
     public Claim() {
+    }
+
+    public Claim(Double claimAmount, String claimType, String policyNumber) {
+        this.claimAmount = claimAmount;
+        this.claimType = claimType;
+        this.policyNumber = policyNumber;
     }
 
     public Long getId() {
         return id;
     }
 
-    public LocalDate getClaimDate() {
-        return claimDate;
+    public Double getClaimAmount() {
+        return claimAmount;
     }
 
-    public void setClaimDate(LocalDate claimDate) {
-        this.claimDate = claimDate;
+    public void setClaimAmount(Double claimAmount) {
+        this.claimAmount = claimAmount;
     }
 
-    public double getAmount() {
-        return amount;
+    public String getClaimType() {
+        return claimType;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setClaimType(String claimType) {
+        this.claimType = claimType;
     }
 
-    public String getDescription() {
-        return description;
+    public String getPolicyNumber() {
+        return policyNumber;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Policy getPolicy() {
-        return policy;
-    }
-
-    public void setPolicy(Policy policy) {
-        this.policy = policy;
-    }
-
-    public Set<FraudRule> getFraudRules() {
-        return fraudRules;
+    public void setPolicyNumber(String policyNumber) {
+        this.policyNumber = policyNumber;
     }
 }
 
