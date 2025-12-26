@@ -5,7 +5,7 @@ import com.example.demo.service.ClaimService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/claims")
+@RequestMapping("/claims")
 public class ClaimController {
 
     private final ClaimService claimService;
@@ -14,9 +14,11 @@ public class ClaimController {
         this.claimService = claimService;
     }
 
-    @PostMapping
-    public Claim submitClaim(@RequestBody Claim claim) {
-        return claimService.createClaim(claim);
+    @PostMapping("/policy/{policyId}")
+    public Claim createClaim(
+            @PathVariable Long policyId,
+            @RequestBody Claim claim) {
+        return claimService.createClaim(policyId, claim);
     }
 
     @GetMapping("/{id}")

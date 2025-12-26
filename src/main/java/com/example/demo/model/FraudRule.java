@@ -36,4 +36,17 @@ public class FraudRule {
 
     public Set<Claim> getClaims() { return claims; }
     public void setClaims(Set<Claim> claims) { this.claims = claims; }
+
+    public String getConditionField() {
+    return field;
+}
+
+public String getOperator() {
+    return operator;
+}
+
+public String getValue() {
+    return value;
+}
+
 }

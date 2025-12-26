@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/policies")
+@RequestMapping("/policies")
 public class PolicyController {
 
     private final PolicyService policyService;
@@ -16,13 +16,15 @@ public class PolicyController {
         this.policyService = policyService;
     }
 
-    @PostMapping
-    public Policy createPolicy(@RequestBody Policy policy) {
-        return policyService.createPolicy(policy);
+    @PostMapping("/user/{userId}")
+    public Policy createPolicy(
+            @PathVariable Long userId,
+            @RequestBody Policy policy) {
+        return policyService.createPolicy(userId, policy);
     }
 
     @GetMapping("/user/{userId}")
-    public List<Policy> getPoliciesByUser(@PathVariable Long userId) {
+    public List<Policy> getPolicies(@PathVariable Long userId) {
         return policyService.getPoliciesByUser(userId);
     }
 }
