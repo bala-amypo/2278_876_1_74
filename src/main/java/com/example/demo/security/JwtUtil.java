@@ -19,10 +19,6 @@ public class JwtUtil {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    // =====================================================
-    // REQUIRED BY TESTS
-    // =====================================================
-
     public String generateToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
@@ -32,7 +28,6 @@ public class JwtUtil {
                 .compact();
     }
 
-    // 🔥 THIS overload is CRITICAL for your failing test
     public String generateToken(User user) {
         return Jwts.builder()
                 .setSubject(user.getEmail())
