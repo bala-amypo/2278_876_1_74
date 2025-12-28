@@ -2,6 +2,7 @@ package com.example.demo.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
@@ -17,6 +18,7 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
 
         SecurityScheme bearerAuth = new SecurityScheme()
+                .name("Authorization")
                 .type(SecurityScheme.Type.HTTP)
                 .scheme("bearer")
                 .bearerFormat("JWT");
@@ -26,6 +28,11 @@ public class SwaggerConfig {
                 .description("Production Server");
 
         return new OpenAPI()
+                .info(new Info()
+                        .title("Insurance Fraud Pattern Detector API")
+                        .description("REST API for insurance policy, claims, and fraud detection")
+                        .version("1.0.0")
+                )
                 .addSecurityItem(
                         new SecurityRequirement().addList("bearerAuth")
                 )
