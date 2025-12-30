@@ -19,16 +19,10 @@ public class Claim {
 
     private String description;
 
-    /* -------------------------------
-       Policy relationship
-    -------------------------------- */
     @ManyToOne
     @JoinColumn(name = "policy_id")
     private Policy policy;
 
-    /* -------------------------------
-       Fraud rules (Many-to-Many)
-    -------------------------------- */
     @ManyToMany
     @JoinTable(
             name = "claim_fraud_rules",
@@ -37,16 +31,10 @@ public class Claim {
     )
     private Set<FraudRule> suspectedRules = new HashSet<>();
 
-    /* -------------------------------
-       Fraud check result (OWNING SIDE)
-    -------------------------------- */
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fraud_check_result_id")
     private FraudCheckResult fraudCheckResult;
 
-    /* -------------------------------
-       Constructors
-    -------------------------------- */
     public Claim() {
     }
 
@@ -57,9 +45,6 @@ public class Claim {
         this.description = description;
     }
 
-    /* -------------------------------
-       Getters & Setters
-    -------------------------------- */
     public Long getId() {
         return id;
     }
